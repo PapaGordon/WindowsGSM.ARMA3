@@ -10,10 +10,10 @@ WindowsGSM plugin for Arma 3 Dedicated Server using arma3server_x64.exe.
 Primary WindowsGSM target
 -------------------------
 MeFriendos currently uses:
-Raziel7893/WindowsGSM v1.25.1.22
-https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.1.22
+Raziel7893/WindowsGSM v1.25.2.1
+https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.2.1
 
-Raziel v1.25.1.22 targets .NET 8 on Windows and requires the .NET 8 Desktop Runtime according to that WindowsGSM release.
+Raziel v1.25.2.1 targets .NET 8 on Windows and requires the .NET 8 Desktop Runtime according to that WindowsGSM release.
 
 Installation
 ------------
@@ -57,7 +57,7 @@ Standard input is intentionally not redirected. Use in-game # admin commands or 
 
 Toggle Console fix in 0.1.2
 ---------------------------
-Version 0.1.2 improves native Toggle Console handling for Raziel7893/WindowsGSM v1.25.1.22.
+Version 0.1.2 improves native Toggle Console handling for Raziel7893/WindowsGSM v1.25.2.1.
 
 The plugin:
 - calls Process.Refresh() before trusting Process.MainWindowHandle;
@@ -71,7 +71,7 @@ The plugin:
 - directly applies ShowNormal/Hide to the correctly resolved HWND when ShowConsole changes;
 - creates arma3-toggle-console.log in the server cache directory for diagnostics.
 
-The Toggle Console implementation has been tested successfully with Raziel7893/WindowsGSM v1.25.1.22 and a real Arma 3 Dedicated Server.
+The Toggle Console implementation has been tested successfully with Raziel7893/WindowsGSM v1.25.2.1 and a real Arma 3 Dedicated Server.
 
 Diagnostic file
 ---------------
@@ -129,7 +129,7 @@ Use strong private administration passwords and mission/mod-specific BattlEye fi
 Compatibility
 -------------
 - Plugin version: 0.1.2
-- WindowsGSM: Raziel7893/WindowsGSM v1.25.1.22
+- WindowsGSM: Raziel7893/WindowsGSM v1.25.2.1
 - Arma process: arma3server_x64.exe
 - Embedded Console: RPT mirror
 - Toggle Console: show and hide tested successfully
@@ -149,10 +149,10 @@ Credits
 -------
 Based on WindowsGSM.ARMA3 by BattlefieldDuck.
 64-bit implementation compared with the MildlyInterested fork.
-Primary MeFriendos WindowsGSM environment: Raziel7893/WindowsGSM v1.25.1.22.
+Primary MeFriendos WindowsGSM environment: Raziel7893/WindowsGSM v1.25.2.1.
 MeFriendos build by PapaGordon / MeFriendos.
 
 https://github.com/PapaGordon/WindowsGSM.ARMA3-MeFriendos
 https://github.com/PapaGordon/WindowsGSM.ARMA3-MeFriendos/releases/tag/v0.1.2
-https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.1.22
+https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.2.1
 https://mefriendos.de

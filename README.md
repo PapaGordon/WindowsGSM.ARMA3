@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.1.22"><img src="https://img.shields.io/badge/WindowsGSM-Raziel%20v1.25.1.22-38CDD4" alt="Raziel WindowsGSM v1.25.1.22"></a>
+  <a href="https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.2.1"><img src="https://img.shields.io/badge/WindowsGSM-Raziel%20v1.25.2.1-38CDD4" alt="Raziel WindowsGSM v1.25.2.1"></a>
   <a href="https://github.com/PapaGordon/WindowsGSM.ARMA3-MeFriendos/releases/tag/v0.1.2"><img src="https://img.shields.io/badge/version-0.1.2-9EFF99" alt="Version 0.1.2"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
 </p>
@@ -39,7 +39,7 @@ This plugin installs, updates and runs the Arma 3 Dedicated Server through Steam
 | Setting | Value |
 | --- | --- |
 | Plugin version | `0.1.2` |
-| Tested WindowsGSM build | `Raziel7893/WindowsGSM v1.25.1.22` |
+| Tested WindowsGSM build | `Raziel7893/WindowsGSM v1.25.2.1` |
 | SteamCMD App ID | `233780` |
 | Start executable | `arma3server_x64.exe` |
 | Default game port | `2302/UDP` |
@@ -53,11 +53,11 @@ This plugin installs, updates and runs the Arma 3 Dedicated Server through Steam
 
 ## Requirements
 
-- Raziel7893/WindowsGSM `v1.25.1.22` or a compatible WindowsGSM build
+- Raziel7893/WindowsGSM `v1.25.2.1` or a compatible WindowsGSM build
 - Windows x64
 - Administrator rights for WindowsGSM when the firewall safety check is enabled
 - A Steam account usable by SteamCMD for installation and updates
-- .NET 8 Desktop Runtime when using Raziel WindowsGSM v1.25.1.22
+- .NET 8 Desktop Runtime when using Raziel WindowsGSM v1.25.2.1
 
 The Arma 3 Dedicated Server package uses Steam App ID `233780`.
 
@@ -121,7 +121,7 @@ The implementation:
 9. Detects Raziel WindowsGSM's `ShowConsole` state through reflection.
 10. Applies `ShowNormal` or `Hide` to the correctly resolved HWND when Toggle Console changes that state.
 
-The Toggle Console implementation has been tested successfully with **Raziel7893/WindowsGSM v1.25.1.22** and a real Arma 3 Dedicated Server.
+The Toggle Console implementation has been tested successfully with **Raziel7893/WindowsGSM v1.25.2.1** and a real Arma 3 Dedicated Server.
 
 ### Toggle Console diagnostics
 
@@ -220,7 +220,7 @@ Change `hostname` in `server.cfg`. WindowsGSM's Server Name is used as the Arma 
 
 Version `0.1.2` has been tested with:
 
-- **WindowsGSM:** Raziel7893 v1.25.1.22
+- **WindowsGSM:** Raziel7893 v1.25.2.1
 - **Arma 3:** `arma3server_x64.exe`
 - **Embedded Console:** RPT mirror
 - **Toggle Console:** show and hide
@@ -229,7 +229,7 @@ Version `0.1.2` has been tested with:
 
 - [Latest release](https://github.com/PapaGordon/WindowsGSM.ARMA3-MeFriendos/releases/latest)
 - [Source](https://github.com/PapaGordon/WindowsGSM.ARMA3-MeFriendos)
-- [Raziel7893/WindowsGSM v1.25.1.22](https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.1.22)
+- [Raziel7893/WindowsGSM v1.25.2.1](https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.2.1)
 - [Original plugin](https://github.com/BattlefieldDuck/WindowsGSM.ARMA3)
 - [64-bit fork reference](https://github.com/MildlyInterested/WindowsGSM.ARMA3)
 - [Original WindowsGSM project](https://github.com/WindowsGSM/WindowsGSM)
