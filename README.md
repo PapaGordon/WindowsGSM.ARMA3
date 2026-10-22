@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.2.1"><img src="https://img.shields.io/badge/WindowsGSM-Raziel%20v1.25.2.1-38CDD4" alt="Raziel WindowsGSM v1.25.2.1"></a>
+  <a href="https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.2.2"><img src="https://img.shields.io/badge/WindowsGSM-Raziel%20v1.25.2.2-38CDD4" alt="Raziel WindowsGSM v1.25.2.2"></a>
   <a href="https://github.com/PapaGordon/WindowsGSM.ARMA3-MeFriendos/releases/tag/v0.1.2"><img src="https://img.shields.io/badge/version-0.1.2-9EFF99" alt="Version 0.1.2"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
 </p>
