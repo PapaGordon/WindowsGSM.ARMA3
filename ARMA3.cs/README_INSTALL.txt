@@ -10,10 +10,10 @@ WindowsGSM plugin for Arma 3 Dedicated Server using arma3server_x64.exe.
 Primary WindowsGSM target
 -------------------------
 MeFriendos currently uses:
-Raziel7893/WindowsGSM v1.25.2.1
-https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.2.1
+PapaGordon/WindowsGSM v1.25.3.0
+https://github.com/PapaGordon/WindowsGSM/releases/tag/v1.25.3.0
 
-Raziel v1.25.2.1 targets .NET 8 on Windows and requires the .NET 8 Desktop Runtime according to that WindowsGSM release.
+The Windows x64 download includes the .NET runtime.
 
 Installation
 ------------
@@ -55,9 +55,9 @@ If -noLogs is enabled, the server can still start but there is no RPT source for
 
 Standard input is intentionally not redirected. Use in-game # admin commands or RCon for administration.
 
-Toggle Console fix in 0.1.2
+Native Toggle Console
 ---------------------------
-Version 0.1.2 improves native Toggle Console handling for Raziel7893/WindowsGSM v1.25.2.1.
+Native Toggle Console handling follows the ShowConsole state in MeFriendos WindowsGSM v1.25.3.0.
 
 The plugin:
 - calls Process.Refresh() before trusting Process.MainWindowHandle;
@@ -67,11 +67,11 @@ The plugin:
 - rejects PseudoConsoleWindow as an unsafe native toggle target;
 - writes a valid result to WindowsGSM ServerMetadata.MainWindow and windowsIntPtr;
 - continues monitoring while the Arma process is alive;
-- detects Raziel's ShowConsole state through reflection;
+- detects WindowsGSM's ShowConsole state through reflection;
 - directly applies ShowNormal/Hide to the correctly resolved HWND when ShowConsole changes;
 - creates arma3-toggle-console.log in the server cache directory for diagnostics.
 
-The Toggle Console implementation has been tested successfully with Raziel7893/WindowsGSM v1.25.2.1 and a real Arma 3 Dedicated Server.
+MeFriendos uses this console handling with WindowsGSM v1.25.3.0 and a real Arma 3 Dedicated Server.
 
 Diagnostic file
 ---------------
@@ -101,7 +101,8 @@ Firewall behavior
 Firewall management follows WindowsGSM's per-server Auto Firewall setting.
 The plugin does not create, remove or inspect firewall rules and does not block startup for a plugin firewall check.
 
-Use a WindowsGSM build with Auto Firewall, such as https://github.com/PapaGordon/WindowsGSM.
+Use MeFriendos WindowsGSM v1.25.3.0 with Auto Firewall:
+https://github.com/PapaGordon/WindowsGSM/releases/tag/v1.25.3.0
 For manual port rules, turn Auto Firewall off for this server in WindowsGSM and configure the required ports yourself. Router forwarding remains separate.
 
 Default incoming ports
@@ -128,11 +129,11 @@ Use strong private administration passwords and mission/mod-specific BattlEye fi
 Compatibility
 -------------
 - Plugin version: 0.1.3
-Runtime checks below were performed with plugin 0.1.2.
-- WindowsGSM: Raziel7893/WindowsGSM v1.25.2.1
+Used by MeFriendos with the following setup:
+- WindowsGSM: PapaGordon/WindowsGSM v1.25.3.0
 - Arma process: arma3server_x64.exe
 - Embedded Console: RPT mirror
-- Toggle Console: show and hide tested successfully
+- Toggle Console: show and hide
 
 Important
 ---------
@@ -149,10 +150,10 @@ Credits
 -------
 Based on WindowsGSM.ARMA3 by BattlefieldDuck.
 64-bit implementation compared with the MildlyInterested fork.
-Primary MeFriendos WindowsGSM environment: Raziel7893/WindowsGSM v1.25.2.1.
+Primary MeFriendos WindowsGSM environment: PapaGordon/WindowsGSM v1.25.3.0.
 MeFriendos build by PapaGordon / MeFriendos.
 
 https://github.com/PapaGordon/WindowsGSM.ARMA3-MeFriendos
 https://github.com/PapaGordon/WindowsGSM.ARMA3-MeFriendos/releases/tag/v0.1.2
-https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.2.1
+https://github.com/PapaGordon/WindowsGSM/releases/tag/v1.25.3.0
 https://mefriendos.de
