@@ -10,11 +10,11 @@
 
 <p align="center">
   <a href="https://github.com/Raziel7893/WindowsGSM/releases/tag/v1.25.2.2"><img src="https://img.shields.io/badge/WindowsGSM-Raziel%20v1.25.2.2-38CDD4" alt="Raziel WindowsGSM v1.25.2.2"></a>
-  <a href="https://github.com/PapaGordon/WindowsGSM.ARMA3-MeFriendos/releases/tag/v0.1.2"><img src="https://img.shields.io/badge/version-0.1.2-9EFF99" alt="Version 0.1.2"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.1.3-9EFF99" alt="Version 0.1.3"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
 </p>
 
-This plugin installs, updates and runs the Arma 3 Dedicated Server through SteamCMD. The MeFriendos build keeps the familiar WindowsGSM workflow while adding 64-bit server startup, a safer firewall policy, a read-only RPT-backed embedded console and reliable native **Toggle Console** handling.
+This plugin installs, updates and runs the Arma 3 Dedicated Server through SteamCMD. The MeFriendos build keeps the familiar WindowsGSM workflow while adding 64-bit server startup, a read-only RPT-backed embedded console and reliable native **Toggle Console** handling.
 
 ## Features
 
@@ -29,7 +29,7 @@ This plugin installs, updates and runs the Arma 3 Dedicated Server through Steam
 - Uses reflection for `ShowConsole`, retaining a compatibility path for WindowsGSM builds without that field.
 - Writes Toggle Console diagnostics to `arma3-toggle-console.log` in the server cache folder.
 - Tries a normal console-window close before falling back to process termination.
-- Removes WindowsGSM's automatic application-wide firewall exception before the server starts listening.
+- Leaves firewall management to WindowsGSM's per-server **Auto Firewall** setting.
 - Leaves targeted manual firewall rules unchanged.
 - Uses a `100`-port WindowsGSM instance increment for safer multi-instance layouts.
 - Supports custom startup parameters for mods, server mods, profiles and custom configs.
@@ -38,7 +38,7 @@ This plugin installs, updates and runs the Arma 3 Dedicated Server through Steam
 
 | Setting | Value |
 | --- | --- |
-| Plugin version | `0.1.2` |
+| Plugin version | `0.1.3` |
 | Tested WindowsGSM build | `Raziel7893/WindowsGSM v1.25.2.1` |
 | SteamCMD App ID | `233780` |
 | Start executable | `arma3server_x64.exe` |
@@ -47,15 +47,14 @@ This plugin installs, updates and runs the Arma 3 Dedicated Server through Steam
 | Default WindowsGSM port increment | `100` |
 | Installation login | Steam account |
 | Default parameters | `-profiles=ArmaHosts -config=server.cfg` |
-| Firewall ports | Manual configuration only |
+| Firewall ports | WindowsGSM Auto Firewall or manual port rules |
 | Embedded console | Read-only RPT mirror |
 | Toggle Console | Native Arma / classic console-host window |
 
 ## Requirements
 
-- Raziel7893/WindowsGSM `v1.25.2.1` or a compatible WindowsGSM build
+- A compatible WindowsGSM build with per-server **Auto Firewall**, such as [our WindowsGSM build](https://github.com/PapaGordon/WindowsGSM)
 - Windows x64
-- Administrator rights for WindowsGSM when the firewall safety check is enabled
 - A Steam account usable by SteamCMD for installation and updates
 - .NET 8 Desktop Runtime when using Raziel WindowsGSM v1.25.2.1
 
@@ -69,7 +68,7 @@ The Arma 3 Dedicated Server package uses Steam App ID `233780`.
 4. Add **Arma 3 Dedicated Server** in WindowsGSM.
 5. Enter the Steam credentials requested by WindowsGSM and click **Install**.
 6. Configure `server.cfg`, your profile and any `-mod` / `-serverMod` parameters.
-7. Create only the required manual firewall rules.
+7. Set **Auto Firewall** in WindowsGSM as needed. For manual rules, turn it off and create only the required port rules.
 8. Start the server.
 
 ## Updating Arma 3
@@ -147,11 +146,11 @@ The default `-profiles=ArmaHosts` parameter keeps profile/log data below the ser
 
 If you use `-noLogs`, Arma does not create the RPT source required for the embedded console mirror. This does not disable native Toggle Console handling.
 
-## Security: automatic port opening is disabled
+## Firewall
 
-WindowsGSM normally creates an application firewall exception for the configured start executable before calling a plugin's `Start()` method. This build removes the automatic exception for this server's exact `arma3server_x64.exe` path through the Windows Firewall API before launching the server and verifies that the exception is gone.
+Firewall management follows WindowsGSM's per-server **Auto Firewall** setting. This plugin does not create, remove or inspect firewall rules and does not block startup for a plugin firewall check.
 
-The plugin does **not** create game-port rules and does not remove manually configured port-specific rules.
+Use a WindowsGSM build with **Auto Firewall**, such as our [WindowsGSM build](https://github.com/PapaGordon/WindowsGSM). For the MeFriendos setup with manual port rules, turn **Auto Firewall** off for this server in WindowsGSM and configure the required ports yourself. Router forwarding remains separate.
 
 For the default Arma 3 port layout:
 

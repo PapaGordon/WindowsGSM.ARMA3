@@ -1,5 +1,5 @@
+// Made by PapaGordon
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -69,7 +69,7 @@ namespace WindowsGSM.Plugins
             name = "WindowsGSM.ARMA3",
             author = "MeFriendos",
             description = "WindowsGSM plugin for Arma 3 Dedicated Server (MeFriendos build)",
-            version = "0.1.2",
+            version = "0.1.3",
             url = "https://github.com/PapaGordon/WindowsGSM.ARMA3-MeFriendos",
             color = "#9eff99"
         };
@@ -98,70 +98,6 @@ namespace WindowsGSM.Plugins
 
         // - Create a default cfg for the game server after installation
         public async void CreateServerCFG() { }
-
-        private bool RemoveAutomaticFirewallException()
-        {
-            string programPath = ServerPath.GetServersServerFiles(_serverData.ServerID, StartPath);
-
-            try
-            {
-                Type managerType = Type.GetTypeFromProgID("HNetCfg.FwMgr");
-                if (managerType == null)
-                    return false;
-
-                object manager = Activator.CreateInstance(managerType);
-                object localPolicy = manager.GetType().InvokeMember(
-                    "LocalPolicy", BindingFlags.GetProperty, null, manager, null);
-                object currentProfile = localPolicy.GetType().InvokeMember(
-                    "CurrentProfile", BindingFlags.GetProperty, null, localPolicy, null);
-                object applications = currentProfile.GetType().InvokeMember(
-                    "AuthorizedApplications", BindingFlags.GetProperty, null, currentProfile, null);
-
-                IEnumerable entries = applications as IEnumerable;
-                if (entries == null)
-                    return false;
-
-                bool found = false;
-                foreach (object application in entries)
-                {
-                    string applicationPath = Convert.ToString(application.GetType().InvokeMember(
-                        "ProcessImageFileName", BindingFlags.GetProperty, null, application, null));
-
-                    if (string.Equals(applicationPath, programPath, StringComparison.OrdinalIgnoreCase))
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (!found)
-                    return true;
-
-                applications.GetType().InvokeMember(
-                    "Remove", BindingFlags.InvokeMethod, null, applications, new object[] { programPath });
-
-                applications = currentProfile.GetType().InvokeMember(
-                    "AuthorizedApplications", BindingFlags.GetProperty, null, currentProfile, null);
-                entries = applications as IEnumerable;
-                if (entries == null)
-                    return false;
-
-                foreach (object application in entries)
-                {
-                    string applicationPath = Convert.ToString(application.GetType().InvokeMember(
-                        "ProcessImageFileName", BindingFlags.GetProperty, null, application, null));
-
-                    if (string.Equals(applicationPath, programPath, StringComparison.OrdinalIgnoreCase))
-                        return false;
-                }
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
 
         private static string GetStartParameterValue(string arguments, string parameterName)
         {
@@ -996,12 +932,6 @@ namespace WindowsGSM.Plugins
             if (!File.Exists(exePath))
             {
                 Error = StartPath + " not found (" + exePath + ")";
-                return null;
-            }
-
-            if (!RemoveAutomaticFirewallException())
-            {
-                Error = "Automatic firewall access could not be disabled. Start WindowsGSM as administrator or remove the broad arma3server_x64.exe rule manually.";
                 return null;
             }
 

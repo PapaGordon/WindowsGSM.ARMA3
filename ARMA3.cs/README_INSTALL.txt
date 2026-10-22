@@ -1,4 +1,4 @@
-VERSION 0.1.2
+VERSION 0.1.3
 
 WindowsGSM.ARMA3 - MeFriendos build
 ====================================
@@ -98,12 +98,11 @@ The plugin waits up to 20 seconds after a successful close request before fallin
 
 Firewall behavior
 -----------------
-Automatic application-wide firewall access is intentionally disabled.
+Firewall management follows WindowsGSM's per-server Auto Firewall setting.
+The plugin does not create, remove or inspect firewall rules and does not block startup for a plugin firewall check.
 
-WindowsGSM creates a firewall application exception for arma3server_x64.exe before plugin Start() runs. This build removes that exact application exception through the Windows Firewall API and verifies that it is gone before starting the server.
-
-The plugin does not create or remove your manual port-specific firewall rules.
-If the safety check cannot verify the automatic exception was removed, startup is blocked. Run WindowsGSM as administrator.
+Use a WindowsGSM build with Auto Firewall, such as https://github.com/PapaGordon/WindowsGSM.
+For manual port rules, turn Auto Firewall off for this server in WindowsGSM and configure the required ports yourself. Router forwarding remains separate.
 
 Default incoming ports
 ----------------------
@@ -128,7 +127,8 @@ Use strong private administration passwords and mission/mod-specific BattlEye fi
 
 Compatibility
 -------------
-- Plugin version: 0.1.2
+- Plugin version: 0.1.3
+Runtime checks below were performed with plugin 0.1.2.
 - WindowsGSM: Raziel7893/WindowsGSM v1.25.2.1
 - Arma process: arma3server_x64.exe
 - Embedded Console: RPT mirror
