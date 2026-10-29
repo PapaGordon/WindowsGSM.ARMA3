@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.4 - 2026-10-29
+
+- Adds optional Workshop updates before server start, staged mod deployment, managed signing keys and rollback. See WORKSHOP.md.
+
+- Refreshes the README links, current WindowsGSM guidance and Steam credential compatibility notes.
+- Uses the current canonical repository URL.
+
+
 ## 0.1.3 - 2026-10-22
 
 - Removed plugin firewall cleanup and its startup block. Firewall management now follows WindowsGSM's per-server Auto Firewall setting.

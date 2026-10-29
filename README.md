@@ -9,12 +9,21 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/PapaGordon/WindowsGSM/releases/tag/v1.25.3.0"><img src="https://img.shields.io/badge/WindowsGSM-MeFriendos%20v1.25.3.0-38CDD4" alt="MeFriendos WindowsGSM v1.25.3.0"></a>
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.1.3-9EFF99" alt="Version 0.1.3"></a>
+  <a href="https://github.com/PapaGordon/WindowsGSM/releases/latest"><img src="https://img.shields.io/badge/WindowsGSM-MeFriendos%20latest-38CDD4" alt="Latest MeFriendos WindowsGSM"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.1.4-9EFF99" alt="Version 0.1.4"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
 </p>
 
 This plugin installs, updates and runs the Arma 3 Dedicated Server through SteamCMD. The MeFriendos build keeps the familiar WindowsGSM workflow while adding 64-bit server startup, a read-only RPT-backed embedded console and reliable native **Toggle Console** handling.
+
+
+## WindowsGSM and Steam login
+
+Use the [latest MeFriendos WindowsGSM release](https://github.com/PapaGordon/WindowsGSM/releases/latest). This server is already built into that fork, so select its normal built-in entry there. The standalone plugin remains available for other compatible WindowsGSM builds.
+
+This plugin uses WindowsGSM's central SteamCMD installer for account login. On MeFriendos WindowsGSM v1.25.4.2 or newer it accepts both legacy plaintext credentials and the encrypted `steamPassEncrypted` field. Run WGSM under the Windows user that encrypted the password. [Password setup](https://github.com/PapaGordon/WindowsGSM/blob/main/STEAM-CREDENTIALS.md). Other forks need their own support for this encrypted format; updating this plugin cannot add it to an older host.
+
+The plugin leaves firewall management to the host. On other WindowsGSM builds, configure game/query port rules manually if the host does not manage them. Router forwarding is separate.
 
 ## Features
 
@@ -38,8 +47,8 @@ This plugin installs, updates and runs the Arma 3 Dedicated Server through Steam
 
 | Setting | Value |
 | --- | --- |
-| Plugin version | `0.1.3` |
-| WindowsGSM used by MeFriendos | `PapaGordon/WindowsGSM v1.25.3.0` |
+| Plugin version | `0.1.4` |
+| Current MeFriendos WindowsGSM | [Latest release](https://github.com/PapaGordon/WindowsGSM/releases/latest) |
 | SteamCMD App ID | `233780` |
 | Start executable | `arma3server_x64.exe` |
 | Default game port | `2302/UDP` |
@@ -53,9 +62,9 @@ This plugin installs, updates and runs the Arma 3 Dedicated Server through Steam
 
 ## Requirements
 
-MeFriendos uses this plugin with [WindowsGSM v1.25.3.0](https://github.com/PapaGordon/WindowsGSM/releases/tag/v1.25.3.0). The Windows x64 download includes the .NET runtime.
+MeFriendos uses this plugin with [WindowsGSM (latest release)](https://github.com/PapaGordon/WindowsGSM/releases/latest). The Windows x64 download includes the .NET runtime.
 
-- [MeFriendos WindowsGSM v1.25.3.0](https://github.com/PapaGordon/WindowsGSM/releases/tag/v1.25.3.0) with per-server **Auto Firewall**
+- [MeFriendos WindowsGSM (latest release)](https://github.com/PapaGordon/WindowsGSM/releases/latest) with per-server **Auto Firewall**
 - Windows x64
 - A Steam account usable by SteamCMD for installation and updates
 
@@ -121,7 +130,7 @@ The implementation:
 9. Detects WindowsGSM's `ShowConsole` state through reflection.
 10. Applies `ShowNormal` or `Hide` to the correctly resolved HWND when Toggle Console changes that state.
 
-MeFriendos uses this console handling with **WindowsGSM v1.25.3.0** and a real Arma 3 Dedicated Server.
+Earlier console handling was checked with **WindowsGSM v1.25.3.0** and a real Arma 3 Dedicated Server.
 
 ### Toggle Console diagnostics
 
@@ -151,7 +160,7 @@ If you use `-noLogs`, Arma does not create the RPT source required for the embed
 
 Firewall management follows WindowsGSM's per-server **Auto Firewall** setting. This plugin does not create, remove or inspect firewall rules and does not block startup for a plugin firewall check.
 
-Use [MeFriendos WindowsGSM v1.25.3.0](https://github.com/PapaGordon/WindowsGSM/releases/tag/v1.25.3.0) with **Auto Firewall**. For the MeFriendos setup with manual port rules, turn **Auto Firewall** off for this server in WindowsGSM and configure the required ports yourself. Router forwarding remains separate.
+Use [MeFriendos WindowsGSM (latest release)](https://github.com/PapaGordon/WindowsGSM/releases/latest) with **Auto Firewall**. For the MeFriendos setup with manual port rules, turn **Auto Firewall** off for this server in WindowsGSM and configure the required ports yourself. Router forwarding remains separate.
 
 For the default Arma 3 port layout:
 
@@ -218,7 +227,7 @@ Change `hostname` in `server.cfg`. WindowsGSM's Server Name is used as the Arma 
 
 ## Compatibility
 
-MeFriendos uses plugin `0.1.3` with:
+Earlier live setup reference (plugin `0.1.3`):
 
 - **WindowsGSM:** PapaGordon/WindowsGSM v1.25.3.0
 - **Arma 3:** `arma3server_x64.exe`
@@ -227,9 +236,9 @@ MeFriendos uses plugin `0.1.3` with:
 
 ## Project links
 
-- [Latest release](https://github.com/PapaGordon/WindowsGSM.ARMA3-MeFriendos/releases/latest)
-- [Source](https://github.com/PapaGordon/WindowsGSM.ARMA3-MeFriendos)
-- [MeFriendos WindowsGSM v1.25.3.0](https://github.com/PapaGordon/WindowsGSM/releases/tag/v1.25.3.0)
+- [Latest release](https://github.com/PapaGordon/WindowsGSM.ARMA3/releases/latest)
+- [Source](https://github.com/PapaGordon/WindowsGSM.ARMA3)
+- [MeFriendos WindowsGSM (latest release)](https://github.com/PapaGordon/WindowsGSM/releases/latest)
 - [Original plugin](https://github.com/BattlefieldDuck/WindowsGSM.ARMA3)
 - [64-bit fork reference](https://github.com/MildlyInterested/WindowsGSM.ARMA3)
 - [Original WindowsGSM project](https://github.com/WindowsGSM/WindowsGSM)
@@ -245,3 +254,6 @@ Maintained by Brandon Hanke (PapaGordon), owner of MeFriendos.de.
 Based on the original MIT-licensed WindowsGSM.ARMA3 plugin. The original copyright and MIT license notice are retained in [LICENSE](LICENSE).
 
 You can use, modify and redistribute this plugin, including commercially. Keep the copyright and license notices with any copies or substantial portions of the code.
+## Workshop updates before start
+
+Optional: create a per-server WorkshopMods.cfg to download and stage configured mods before each start. Steam subscriptions alone do not update server mod folders. See [setup, backups and recovery](WORKSHOP.md). Unlisted mods are kept. The updater is included in this plugin and uses the host's SteamCMD login handling.
