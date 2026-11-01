@@ -249,8 +249,6 @@ This is an independent community plugin. It is not affiliated with or endorsed b
 
 ## License
 
-Maintained by Brandon Hanke (PapaGordon), owner of MeFriendos.de.
-
 Based on the original MIT-licensed WindowsGSM.ARMA3 plugin. The original copyright and MIT license notice are retained in [LICENSE](LICENSE).
 
 You can use, modify and redistribute this plugin, including commercially. Keep the copyright and license notices with any copies or substantial portions of the code.
