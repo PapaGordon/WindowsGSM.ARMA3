@@ -5,178 +5,113 @@
 <h1 align="center">WindowsGSM.ARMA3</h1>
 
 <p align="center">
-  MeFriendos build for running an Arma 3 Dedicated Server with WindowsGSM.
+  Run an Arma 3 dedicated server with WindowsGSM.
 </p>
 
 <p align="center">
   <a href="https://github.com/PapaGordon/WindowsGSM/releases/latest"><img src="https://img.shields.io/badge/WindowsGSM-MeFriendos%20latest-38CDD4" alt="Latest MeFriendos WindowsGSM"></a>
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.1.4-9EFF99" alt="Version 0.1.4"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.1.5-9EFF99" alt="Version 0.1.5"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
 </p>
 
-This plugin installs, updates and runs the Arma 3 Dedicated Server through SteamCMD. The MeFriendos build keeps the familiar WindowsGSM workflow while adding 64-bit server startup, a read-only RPT-backed embedded console and reliable native **Toggle Console** handling.
+This plugin installs and updates the Arma 3 dedicated server through SteamCMD and runs the 64-bit server from WindowsGSM. It shows the server log in WindowsGSM, makes **Toggle Console** work reliably and can keep a list of Workshop mods up to date. It's based on the original [WindowsGSM.ARMA3](https://github.com/BattlefieldDuck/WindowsGSM.ARMA3) by BattlefieldDuck.
 
+**Using our [MeFriendos WindowsGSM](https://github.com/PapaGordon/WindowsGSM)?** Then you don't need this plugin. Arma 3 is built in there, with the same features. Just pick **Arma 3 Dedicated Server** under **Install**. This plugin is for other WindowsGSM builds.
 
-## WindowsGSM and Steam login
+## What it does
 
-Use the [latest MeFriendos WindowsGSM release](https://github.com/PapaGordon/WindowsGSM/releases/latest). This server is already built into that fork, so select its normal built-in entry there. The standalone plugin remains available for other compatible WindowsGSM builds.
-
-This plugin uses WindowsGSM's central SteamCMD installer for account login. On MeFriendos WindowsGSM v1.25.4.2 or newer it accepts both legacy plaintext credentials and the encrypted `steamPassEncrypted` field. Run WGSM under the Windows user that encrypted the password. [Password setup](https://github.com/PapaGordon/WindowsGSM/blob/main/docs/operations/steam-credentials.md). Other forks need their own support for this encrypted format; updating this plugin cannot add it to an older host.
-
-The plugin leaves firewall management to the host. On other WindowsGSM builds, configure game/query port rules manually if the host does not manage them. Router forwarding is separate.
-
-## Features
-
-- Installs and updates the official Arma 3 Dedicated Server through SteamCMD.
+- Installs and updates the Arma 3 server (Steam app `233780`) with your Steam account.
 - Starts `arma3server_x64.exe`.
-- Mirrors the active Arma 3 `.rpt` log into the WindowsGSM embedded console.
-- Keeps Embedded Console and native Toggle Console as separate features.
-- Resolves the native Arma window through multiple Win32 fallback paths.
-- Monitors the resolved native window for the lifetime of the running Arma process.
-- Synchronizes the resolved HWND with WindowsGSM's `ServerMetadata.MainWindow` and `windowsIntPtr` cache.
-- Integrates with WindowsGSM's persistent `ShowConsole` state so Toggle Console can show and hide the correct window.
-- Uses reflection for `ShowConsole`, retaining a compatibility path for WindowsGSM builds without that field.
-- Writes Toggle Console diagnostics to `arma3-toggle-console.log` in the server cache folder.
-- Tries a normal console-window close before falling back to process termination.
-- Leaves firewall management to WindowsGSM's per-server **Auto Firewall** setting.
-- Leaves targeted manual firewall rules unchanged.
-- Uses a `100`-port WindowsGSM instance increment for safer multi-instance layouts.
-- Supports custom startup parameters for mods, server mods, profiles and custom configs.
+- Shows the server log (RPT) in **Embed Console**.
+- Finds Arma's own console window, so **Toggle Console** shows and hides the right window.
+- Can keep a list of Workshop mods up to date before every start. [Workshop mods](WORKSHOP.md)
+- Asks Arma to close cleanly before WindowsGSM ends the process.
+- Leaves your `server.cfg`, profiles, missions and start parameters alone.
 
-## Quick overview
+## What you need
 
-| Setting | Value |
-| --- | --- |
-| Plugin version | `0.1.4` |
-| Current MeFriendos WindowsGSM | [Latest release](https://github.com/PapaGordon/WindowsGSM/releases/latest) |
-| SteamCMD App ID | `233780` |
-| Start executable | `arma3server_x64.exe` |
-| Default game port | `2302/UDP` |
-| Default query port | `2303/UDP` |
-| Default WindowsGSM port increment | `100` |
-| Installation login | Steam account |
-| Default parameters | `-profiles=ArmaHosts -config=server.cfg` |
-| Firewall ports | WindowsGSM Auto Firewall or manual port rules |
-| Embedded console | Read-only RPT mirror |
-| Toggle Console | Native Arma / classic console-host window |
+- 64-bit Windows and a WindowsGSM build with the `SteamCMDAgent` plugin API. We test with the current [MeFriendos WindowsGSM](https://github.com/PapaGordon/WindowsGSM/releases/latest) (v1.25.4.9).
+- A Steam account saved in WindowsGSM that can download the Arma 3 server.
 
-## Requirements
+The plugin signs in through WindowsGSM's own SteamCMD login. Encrypted Steam passwords (`steamPassEncrypted`) need MeFriendos WindowsGSM v1.25.4.2 or newer, and WindowsGSM has to run as the Windows user that encrypted the password. [Steam account and password](https://github.com/PapaGordon/WindowsGSM/blob/main/docs/operations/steam-credentials.md) Other builds only read the plain `steamPass` field. Updating this plugin can't change that.
 
-MeFriendos uses this plugin with [WindowsGSM (latest release)](https://github.com/PapaGordon/WindowsGSM/releases/latest). The Windows x64 download includes the .NET runtime.
+## Install
 
-- [MeFriendos WindowsGSM (latest release)](https://github.com/PapaGordon/WindowsGSM/releases/latest) with per-server **Auto Firewall**
-- Windows x64
-- A Steam account usable by SteamCMD for installation and updates
-
-The Arma 3 Dedicated Server package uses Steam App ID `233780`.
-
-## Installation
-
-1. Download the latest release.
-2. Extract the complete `ARMA3.cs` folder into `<WindowsGSM>\plugins\`.
+1. Download the ZIP from the [latest release](https://github.com/PapaGordon/WindowsGSM.ARMA3/releases/latest).
+2. Copy the whole `ARMA3.cs` folder into `<WindowsGSM>\plugins\`.
 3. Click **Reload Plugins** or restart WindowsGSM.
-4. Add **Arma 3 Dedicated Server** in WindowsGSM.
-5. Enter the Steam credentials requested by WindowsGSM and click **Install**.
-6. Configure `server.cfg`, your profile and any `-mod` / `-serverMod` parameters.
-7. Set **Auto Firewall** in WindowsGSM as needed. For manual rules, turn it off and create only the required port rules.
-8. Start the server.
+4. Pick **Arma 3 Dedicated Server [ARMA3.cs]** and click **Install**.
+5. Set up `server.cfg`, your profile and your mods (see below).
+6. Open the ports in the Windows firewall and on your router (see [Ports and firewall](#ports-and-firewall)).
+7. Start the server.
 
-## Updating Arma 3
+## Settings
 
-1. Stop the server.
-2. Back up `server.cfg`, profiles, missions and locally managed server files.
-3. Click **Update** in WindowsGSM.
-4. Start the server and review the RPT / embedded-console output.
+| Setting | Default | Notes |
+| --- | --- | --- |
+| Game port | `2302` (UDP) | Passed to Arma as `-port`. The other ports follow from it. |
+| Query port | `2303` (UDP) | Always game port + 1 in Arma. WindowsGSM uses it to show the server status. |
+| Server Name | | Passed as `-name`. In Arma that's the **profile** name, not the name in the server browser. |
+| Start parameters | `-profiles=ArmaHosts -config=server.cfg` | Add your mods and other Arma parameters here. |
 
-SteamCMD updates the dedicated-server files. The plugin does not intentionally rewrite your mission, Altis Life configuration, mod list, `server.cfg` or profile files.
-
-## Console behavior
-
-WindowsGSM exposes two separate console-related features for this plugin:
-
-- **Embed Console** shows read-only Arma server output inside WindowsGSM by following the active `.rpt` file.
-- **Toggle Console** shows or hides the native Arma/classic console-host window selected through WindowsGSM's stored HWND.
-
-### Embedded console
-
-Arma 3 Dedicated Server on Windows does not provide dependable server output through redirected `stdout` / `stderr`. The plugin therefore leaves the Arma process unredirected and follows the active `.rpt` log instead.
-
-When **Embed Console** is enabled, the plugin:
-
-- resolves relative, absolute and quoted `-profiles=` paths;
-- falls back to `%LOCALAPPDATA%\Arma 3` when no `-profiles=` parameter is configured;
-- watches the profile root and direct profile subfolders for the active Arma RPT file;
-- mirrors newly written RPT lines into the WindowsGSM console;
-- avoids deliberately attaching to an unchanged RPT left behind by a previous run;
-- stops following the file when the associated Arma process exits;
-- reports a clear message if `-noLogs` disables the RPT source.
-
-This console is intentionally **read-only**. Use supported in-game `#` admin commands or BattlEye RCon for administration.
-
-### Native Toggle Console
-
-Arma's native console window can become available after the server process starts, which may leave WindowsGSM with a missing or stale window handle. Version `0.1.2` resolves and keeps that handle synchronized.
-
-The implementation:
-
-1. Calls `Process.Refresh()` before reading `Process.MainWindowHandle`.
-2. Rejects unsuitable cached helper-window handles.
-3. Enumerates top-level windows owned by the Arma PID when necessary.
-4. Prefers `ConsoleWindowClass`; otherwise only a visible process-owned fallback window is accepted.
-5. Uses `AttachConsole()` / `GetConsoleWindow()` as an additional console-specific fallback.
-6. Rejects `PseudoConsoleWindow` as an unsafe native Toggle Console target.
-7. Writes a valid target into the matching WindowsGSM `ServerMetadata.MainWindow` and `windowsIntPtr` cache.
-8. Continues monitoring while the Arma process is alive so a stale or replaced HWND can be repaired.
-9. Detects WindowsGSM's `ShowConsole` state through reflection.
-10. Applies `ShowNormal` or `Hide` to the correctly resolved HWND when Toggle Console changes that state.
-
-Earlier console handling was checked with **WindowsGSM v1.25.3.0** and a real Arma 3 Dedicated Server.
-
-### Toggle Console diagnostics
-
-The monitor creates:
-
-```text
-<WindowsGSM>\servers\<server-id>\cache\arma3-toggle-console.log
-```
-
-The log records the Arma PID, WindowsGSM version, window-discovery path, HWND changes, `ShowConsole` synchronization and `AttachConsole` errors.
-
-## Profiles and server name
-
-For compatibility with the original plugin, the WindowsGSM **Server Name** is passed to Arma as the `-name` parameter. In Arma, `-name` selects the **profile name**; it is not the public browser hostname.
-
-Set the public server name in `server.cfg`, for example:
+**Max Players** and **Map** in WindowsGSM are not passed to Arma. Set the player limit, missions and the public server name in `server.cfg`:
 
 ```cpp
 hostname = "MeFriendos Altis Life";
+maxPlayers = 64;
 ```
 
-The default `-profiles=ArmaHosts` parameter keeps profile/log data below the server installation. You can replace it with another relative or absolute path in WindowsGSM's additional parameters when required.
+`-profiles=ArmaHosts` keeps profiles and logs inside the server folder. You can point it somewhere else, with a relative or absolute path. Each new Arma server in WindowsGSM gets ports 100 higher than the previous one (`2302`, `2402`, `2502`, ...).
 
-If you use `-noLogs`, Arma does not create the RPT source required for the embedded console mirror. This does not disable native Toggle Console handling.
+## Mods
 
-## Firewall
+Add the mod folders to the start parameters, separated by semicolons:
 
-Firewall management follows WindowsGSM's per-server **Auto Firewall** setting. This plugin does not create, remove or inspect firewall rules and does not block startup for a plugin firewall check.
+```text
+-profiles=ArmaHosts -config=server.cfg -mod=@CBA_A3;@YourClientMod -serverMod=@YourServerMod
+```
 
-Use [MeFriendos WindowsGSM (latest release)](https://github.com/PapaGordon/WindowsGSM/releases/latest) with **Auto Firewall**. For the MeFriendos setup with manual port rules, turn **Auto Firewall** off for this server in WindowsGSM and configure the required ports yourself. Router forwarding remains separate.
+You can install the mods yourself or let the plugin download them from the Workshop before every start. Mods from the Workshop list are added to `-mod` and `-serverMod` automatically. [Workshop mods](WORKSHOP.md)
 
-For the default Arma 3 port layout:
+## Updating the server
 
-| Port | Protocol | Purpose |
-| --- | --- | --- |
-| `2302` | UDP | Game traffic / VON |
-| `2303` | UDP | Steam query (`+1`) |
-| `2304` | UDP | Steam master (`+2`) |
-| `2305` | UDP | VON allocation (`+3`) |
-| `2306` | UDP | BattlEye (`+4`) |
+1. Stop the server.
+2. Back up `server.cfg`, profiles, missions and anything else you changed in the server folder.
+3. Click **Update** in WindowsGSM.
+4. Start the server and check the log.
 
-When the game port changes, the related ports move with the same offsets. The plugin uses a `100`-port WindowsGSM increment, so subsequent default instances become `2402`, `2502`, and so on.
+SteamCMD only updates the Arma server files. The plugin doesn't touch your missions, Altis Life setup, mods, `server.cfg` or profiles.
 
-## Recommended server.cfg hardening
+## Console
 
-The plugin deliberately does not overwrite `server.cfg`. For a normal public modded server, review at least:
+WindowsGSM offers two separate things here:
+
+- **Embed Console** shows Arma's output inside WindowsGSM. Arma doesn't send its output to WindowsGSM directly, so the plugin follows the current RPT log in your profile folder instead. Without `-profiles` it looks in `%LOCALAPPDATA%\Arma 3`. Older logs from the previous run are skipped. The console only shows output, it doesn't take commands. Use in-game `#` admin commands or BattlEye RCon to manage the server.
+- **Toggle Console** shows or hides Arma's own console window.
+
+With `-noLogs`, Arma writes no RPT log, so **Embed Console** stays empty. **Toggle Console** still works.
+
+**Stop** first asks Arma's window to close and waits up to 20 seconds. Only after that does WindowsGSM end the process.
+
+## Ports and firewall
+
+The plugin doesn't create or remove firewall rules. Use WindowsGSM's **Auto Firewall** if your build has it, or open the ports yourself. Router port forwarding is always up to you.
+
+With the default game port, Arma uses these UDP ports:
+
+| Port | Used for |
+| --- | --- |
+| `2302` | Game and voice |
+| `2303` | Steam query |
+| `2304` | Steam master server |
+| `2305` | Voice |
+| `2306` | BattlEye |
+
+If you change the game port, the others move with it.
+
+## Recommended server.cfg settings
+
+The plugin never changes `server.cfg`. For a public server with mods, check at least these:
 
 ```cpp
 BattlEye = 1;
@@ -185,73 +120,35 @@ allowedFilePatching = 0;
 upnp = 0;
 ```
 
-`allowedFilePatching = 1` can be required for certain Headless Client setups, so do not change it blindly on an existing server.
-
-## Stop behavior
-
-The stop action refreshes the process and first tries the normal process-window close path. If no usable process window is exposed, the plugin may resolve a classic console window and post `WM_CLOSE` to it. A `PseudoConsoleWindow` is deliberately not closed by this fallback. The plugin waits up to 20 seconds after a successful normal close request before falling back to process termination.
-
-## Mods and Altis Life
-
-Use WindowsGSM's additional startup parameters for your existing setup, for example:
-
-```text
--mod=@CBA_A3;@YourClientMod -serverMod=@YourServerMod
-```
-
-The plugin does not scan, download, reorder or modify Arma mods. Existing Altis Life and custom server-side setups remain under administrator control.
+Some headless client setups need `allowedFilePatching = 1`, so don't change that on a running server without checking first. Use strong admin passwords.
 
 ## Troubleshooting
 
-### Toggle Console does nothing
+**Toggle Console does nothing.** Restart the Arma server completely after updating or reloading the plugin, wait until WindowsGSM shows it as started and try again. The plugin writes what it found to `servers\<server ID>\cache\arma3-toggle-console.log`. Look for lines like `Resolved HWND` and `Applied ShowConsole=True`.
 
-1. Confirm WindowsGSM loaded plugin version `0.1.2` or newer.
-2. Fully restart the Arma server after replacing or reloading the plugin.
-3. Wait until WindowsGSM reports the server as started.
-4. Try **Toggle Console** twice: show, then hide.
-5. Inspect `<WindowsGSM>\servers\<server-id>\cache\arma3-toggle-console.log`.
+**Embed Console keeps waiting for RPT output.** Check `-profiles` and make sure Arma writes an `.rpt` file there or in a folder directly below it. Remove `-noLogs`.
 
-Useful log entries include `Resolved HWND`, `Detected WindowsGSM ShowConsole state support`, `Applied ShowConsole=True` and `Applied ShowConsole=False`.
+**The server has the wrong name in the browser.** Change `hostname` in `server.cfg`. The Server Name in WindowsGSM is only the profile name.
 
-### Embedded console stays on "Waiting for Arma 3 RPT output"
+**Players can't connect.** Check all five UDP ports from the game port on (by default `2302` to `2306`), your router forwarding and any firewall at your hosting provider.
 
-Check the effective `-profiles=` parameter and verify that Arma writes an `.rpt` file there or in a direct profile subfolder. Also make sure `-noLogs` is not enabled.
+**A Workshop update is missing.** Look for a `[Notice]` line in the WindowsGSM log. [Workshop mods](WORKSHOP.md#if-something-goes-wrong)
 
-### Players cannot connect
+## How Toggle Console finds the window
 
-Verify the complete UDP port group derived from the configured game port, router/NAT forwarding and any provider firewall. With the default port, check `2302-2306/UDP`.
+Arma's console window often appears only after the process has started, so the handle WindowsGSM saved at start can be missing or wrong. While the server runs, the plugin keeps looking for the right window: it refreshes the process, checks the windows that belong to the Arma process (preferring a real console window), and tries `AttachConsole` as a last resort. Windows Terminal's `PseudoConsoleWindow` is never used. The handle it finds is saved where WindowsGSM expects it, and the plugin follows WindowsGSM's show/hide state. Builds without that state still work.
 
-### The server appears with the wrong public name
+## Links
 
-Change `hostname` in `server.cfg`. WindowsGSM's Server Name is used as the Arma profile name for compatibility and does not control the public hostname.
-
-## Compatibility
-
-Earlier live setup reference (plugin `0.1.3`):
-
-- **WindowsGSM:** PapaGordon/WindowsGSM v1.25.3.0
-- **Arma 3:** `arma3server_x64.exe`
-- **Embedded Console:** RPT mirror
-- **Toggle Console:** show and hide
-
-## Project links
-
-- [Latest release](https://github.com/PapaGordon/WindowsGSM.ARMA3/releases/latest)
-- [Source](https://github.com/PapaGordon/WindowsGSM.ARMA3)
-- [MeFriendos WindowsGSM (latest release)](https://github.com/PapaGordon/WindowsGSM/releases/latest)
-- [Original plugin](https://github.com/BattlefieldDuck/WindowsGSM.ARMA3)
-- [64-bit fork reference](https://github.com/MildlyInterested/WindowsGSM.ARMA3)
-- [Original WindowsGSM project](https://github.com/WindowsGSM/WindowsGSM)
-- [Arma 3 Dedicated Server documentation](https://community.bohemia.net/wiki/Arma_3:_Dedicated_Server)
+- [Releases](https://github.com/PapaGordon/WindowsGSM.ARMA3/releases)
+- [MeFriendos WindowsGSM](https://github.com/PapaGordon/WindowsGSM)
+- [Original plugin by BattlefieldDuck](https://github.com/BattlefieldDuck/WindowsGSM.ARMA3)
+- [64-bit fork by MildlyInterested](https://github.com/MildlyInterested/WindowsGSM.ARMA3), which we compared against
+- [Arma 3 dedicated server documentation](https://community.bohemia.net/wiki/Arma_3:_Dedicated_Server)
 - [MeFriendos](https://mefriendos.de)
 
-This is an independent community plugin. It is not affiliated with or endorsed by Bohemia Interactive or WindowsGSM.
+This is a community plugin. It's not affiliated with or endorsed by Bohemia Interactive or the WindowsGSM project.
 
 ## License
 
-Based on the original MIT-licensed WindowsGSM.ARMA3 plugin. The original copyright and MIT license notice are retained in [LICENSE](LICENSE).
-
-You can use, modify and redistribute this plugin, including commercially. Keep the copyright and license notices with any copies or substantial portions of the code.
-## Workshop updates before start
-
-Optional: create a per-server WorkshopMods.cfg to download and stage configured mods before each start. Steam subscriptions alone do not update server mod folders. See [setup, backups and recovery](WORKSHOP.md). Unlisted mods are kept. The updater is included in this plugin and uses the host's SteamCMD login handling.
+Based on the original MIT-licensed WindowsGSM.ARMA3 plugin. The original copyright notice stays in [LICENSE](LICENSE). You can use, change and share the plugin, also commercially, as long as the copyright and license notice stay with it.
